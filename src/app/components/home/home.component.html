@@ -91,7 +91,11 @@
               {{ product.price | currency : "e£" }}
             </span>
             <p class="mb-0">
-              <i class="fas fa-star rating-color"></i>
+              <i
+                [class.rating-color]="product.ratingsAverage >= num"
+                *ngFor="let num of [1, 2, 3, 4, 5]"
+                class="fas fa-star"
+              ></i>
 
               <span class="text-muted"> {{ product.ratingsAverage }} </span>
             </p>

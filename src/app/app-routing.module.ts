@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       {
         path: 'home',
-        data: { state: 'home' },
+
         loadComponent: () =>
           import('./components/home/home.component').then(
             (m) => m.HomeComponent
@@ -24,7 +24,6 @@ const routes: Routes = [
       },
       {
         path: 'cart',
-        data: { state: 'cart' },
         loadComponent: () =>
           import('./components/cart/cart.component').then(
             (m) => m.CartComponent
@@ -33,7 +32,6 @@ const routes: Routes = [
       },
       {
         path: 'products',
-        data: { state: 'products' },
         loadComponent: () =>
           import('./components/products/products.component').then(
             (m) => m.ProductsComponent
@@ -42,7 +40,6 @@ const routes: Routes = [
       },
       {
         path: 'productdetails/:id',
-        data: { state: 'productdetails' },
 
         loadComponent: () =>
           import('./components/details/details.component').then(
@@ -52,7 +49,6 @@ const routes: Routes = [
       },
       {
         path: 'brands',
-        data: { state: 'brands' },
         loadComponent: () =>
           import('./components/brands/brands.component').then(
             (m) => m.BrandsComponent
@@ -61,7 +57,6 @@ const routes: Routes = [
       },
       {
         path: 'allorders',
-        data: { state: 'allorders' },
 
         loadComponent: () =>
           import('./components/allorders/allorders.component').then(
@@ -71,7 +66,6 @@ const routes: Routes = [
       },
       {
         path: 'forgotpassword',
-        data: { state: 'forgotpassword' },
         loadComponent: () =>
           import('./components/forgotpassword/forgotpassword.component').then(
             (m) => m.ForgotpasswordComponent
@@ -80,7 +74,6 @@ const routes: Routes = [
       },
       {
         path: 'payment/:id',
-        data: { state: 'payment' },
         loadComponent: () =>
           import('./components/payment/payment.component').then(
             (m) => m.PaymentComponent
@@ -89,12 +82,19 @@ const routes: Routes = [
       },
       {
         path: 'categories',
-        data: { state: 'categories' },
         loadComponent: () =>
           import('./components/categories/categories.component').then(
             (m) => m.CategoriesComponent
           ),
         title: 'Categories',
+      },
+      {
+        path: 'categorydetails/:id',
+        loadComponent: () =>
+          import('./components/categorydetails/categorydetails.component').then(
+            (m) => m.CategorydetailsComponent
+          ),
+        title: 'Category Details',
       },
     ],
   },
@@ -110,7 +110,6 @@ const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       {
         path: 'login',
-        data: { state: 'login' },
         loadComponent: () =>
           import('./components/login/login.component').then(
             (m) => m.LoginComponent
@@ -119,7 +118,6 @@ const routes: Routes = [
       },
       {
         path: 'register',
-        data: { state: 'register' },
 
         loadComponent: () =>
           import('./components/register/register.component').then(
@@ -129,7 +127,6 @@ const routes: Routes = [
       },
       {
         path: 'forgot',
-        data: { state: 'forgot' },
 
         loadComponent: () =>
           import('./components/forgotpassword/forgotpassword.component').then(
