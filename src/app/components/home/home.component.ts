@@ -11,6 +11,7 @@ import { CuttextPipe } from 'src/app/core/pipe/cuttext.pipe';
 import { CartService } from 'src/app/core/services/cart.service';
 import { SearchPipe } from 'src/app/core/pipe/search.pipe';
 import { FormsModule } from '@angular/forms';
+import { WhishlistService } from 'src/app/core/services/whishlist.service';
 
 @Component({
   selector: 'app-home',
@@ -31,11 +32,13 @@ export class HomeComponent implements OnInit {
     private _ProductService: ProductService,
     private _CartService: CartService,
     private _ToastrService: ToastrService,
-    private _Renderer2: Renderer2
+    private _Renderer2: Renderer2,
+    private _WhishlistService: WhishlistService
   ) {}
 
   products: Product[] = [];
   catgories: Category[] = [];
+  wishListData: string[] = []; // Data ---> wishlist -> add , remove  ["id","id","id"]
 
   term: string = '';
 
@@ -51,6 +54,16 @@ export class HomeComponent implements OnInit {
       next: (response) => {
         console.log('Categories', response);
         this.catgories = response.data;
+      },
+    });
+
+    this._WhishlistService.getWhishList().subscribe({
+      next: (response) => {
+        // console.log('wishlist', response.data); // data --->[{id:} ,{id:}]  ===> ["id","id"];
+        // [ item._id , item._id ,item._id ]
+        const newData = response.data.map((item: any) => item._id);
+        this.wishListData = newData;
+        // console.log('newData', newData);
       },
     });
   }
@@ -70,6 +83,26 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => {
         this._Renderer2.removeAttribute(element, 'disabled');
+      },
+    });
+  }
+
+  addFav(prodId: string | undefined): void {
+    this._WhishlistService.addToWhishList(prodId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this._ToastrService.success(response.message);
+        this.wishListData = response.data; // ["id","id","id"] --> wishlist
+      },
+    });
+  }
+
+  removeFav(prodId: string | undefined): void {
+    this._WhishlistService.removeWhishList(prodId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this._ToastrService.success(response.message);
+        this.wishListData = response.data; // ["id","id","id"] --> wishlist
       },
     });
   }
